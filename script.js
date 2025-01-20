@@ -2002,10 +2002,12 @@ const questions = [
 ];
 
 
-const questionElement = document.getElementById('question');
+const questionElement = document.getElementById('question'); 
 const answerButtons = document.getElementById('answer-buttons');
 const nextButton = document.getElementById('next-btn');
 const backButton = document.getElementById('back-btn');
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -2082,7 +2084,7 @@ function handleNextButton() {
   }
 }
 
-nextButton.addEventListener('click', ()=>{
+nextButton.addEventListener('click', ()=> {
   if (currentQuestionIndex < questions.length) {
     handleNextButton();
   } else {
@@ -2099,11 +2101,23 @@ function handleBackButton() {
   }
 }
 
-backButton.addEventListener('click', ()=>{
+backButton.addEventListener('click', ()=> {
   if (currentQuestionIndex < questions.length) {
     handleBackButton();
   } else {
     startQuiz();
   }
 });
+
+// Add search functionality for custom question navigation
+searchButton.addEventListener('click', () => {
+  const questionNumber = parseInt(searchInput.value, 10); // Convert input to number
+  if (questionNumber > 0 && questionNumber <= questions.length) {
+    currentQuestionIndex = questionNumber - 1; // Navigate to the correct question index
+    showQuestion(); // Display the selected question
+  } else {
+    alert('Please enter a valid question number between 1 and ' + questions.length);
+  }
+});
+
 startQuiz();
